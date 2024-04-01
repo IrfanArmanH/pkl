@@ -26,8 +26,11 @@ Route::get('/Detail Page', function () {
     return view('posts.detail');
 })->name('detail');
 
-Route::get('/search', [PostController::class,'search']);
+Route::get('/search', [PostController::class,'search'])->name('search');
 
+Route::get('fetch_search', 'SearchController@fetchSearch')->name('fetch_search');
+
+// Route::get('/search', 'PostController@search')->name('posts.search');
 
 Route::resource('/posts', \App\Http\Controllers\PostController::class);
 

@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     const openEditModalLinks = document.querySelectorAll('.openEditModal');
     const modalBody = document.querySelector('.modal-body');

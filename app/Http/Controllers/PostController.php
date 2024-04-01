@@ -31,6 +31,14 @@ class PostController extends Controller
         //render view with posts
         return view('posts.index', compact('posts'));
     }
+
+    public function search(Request $request)
+{
+    $search = $request->input('search');
+    $results = Post::where('nama', 'like', '%' . $search . '%')->get();
+
+    return view('posts.index', ['posts' => $results]);
+}
     public function create(): View
     {
         return view('posts.form_pengaduan');
@@ -42,21 +50,6 @@ class PostController extends Controller
      * @param  mixed $request
      * @return RedirectResponse
      */
-
-    //      public function generateCustomId()
-// {
-//     // Mendapatkan entri terakhir dari database
-//     $lastPost = Post::latest()->first();
-
-    //     // Jika tidak ada entri sebelumnya, kita mulai dengan nomor 1
-//     $lastId = $lastPost ? (int) substr($lastPost->custom_id, -4) + 1 : 1;
-
-    //     // Format tanggal
-//     $dateCode = date('ymd');
-
-    //     // Menghasilkan custom ID dengan format yang diinginkan
-//     return 'PJU-' . $dateCode . str_pad($lastId, 4, '0', STR_PAD_LEFT);
-// }
 
     public function store(Request $request): RedirectResponse
     {
@@ -179,75 +172,76 @@ class PostController extends Controller
         return view('posts.index')->with('totalData', $totalData);
     }
 
-    public function search(Request $request)
-    {
-        $output="";
+    // public function search(Request $request)
+    // {
+    //     $output="";
     
-        $posts = Post::where('custom_id', 'Like', '%'.$request->search.'%')
-                    ->orWhere('nama', 'Like', '%'.$request->search.'%')
-                    ->get();
+    //     $posts = Post::where('custom_id', 'Like', '%'.$request->search.'%')
+    //                 ->orWhere('nama', 'Like', '%'.$request->search.'%')
+    //                 ->get();
         
-        $number = 1; 
-        foreach($posts as $posts )
-        {
-            $output.=
-            '<tr>
-                <td>'.$number.'</td>
-                <td>'.$posts->custom_id.'</td>
-                <td>'.$posts->nama.'</td>
-                <td>'.$posts->nik.'</td>
-                <td>'.$posts->email.'</td>
-                <td>'.$posts->created_at.'</td>
-                <td style="text-align: center;">';
-                if ($posts->tindak_lanjut === 0)
-                    $output .= '<p>Belum ditanggapi</p>';
-                elseif ($posts->tindak_lanjut === 1)
-                    $output .= '<p>Dalam proses</p>';
-                elseif ($posts->tindak_lanjut === 2)
-                    $output .= '<p>Selesai</p>';
-                else
-                    $output .= '<p>Status tidak valid</p>';
-                $output .= '</td>
-                <td style="text-align: center;">';
-                if ($posts->status === 0)
-                    $output .= '<p>Belum ditanggapi</p>';
-                elseif ($posts->status === 1)
-                    $output .= '<p>Dalam proses</p>';
-                elseif ($posts->status === 2)
-                    $output .= '<p>Selesai</p>';
-                else
-                    $output .= '<p>Status tidak valid</p>';
-                    $output .= '</td>
-                    <td class="text-center">
-                        <div id="edit-form-container"></div>
-                        <form onsubmit="return confirm(\'Apakah Anda Yakin ?\');" action="'. route('posts.destroy', $posts->id) .'" method="POST">
-                            <a href="'. route('posts.show', $posts->id) .'" class="btn btn-sm btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                            <a href="#" class="btn btn-sm btn-primary openEditModal" data-bs-target="#editModal_'.$posts->id.'" data-bs-toggle="modal" data-id="'. $posts->id .'"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                        </form>
-                    </td>
-                </tr>
-                <!-- Modal -->
-                <div class="modal fade" id="editModal_'.$posts->id.'" tabindex="-1" aria-labelledby="editModalLabel_'.$posts->id.'" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel_'.$posts->id.'">Edit Data</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Form edit akan dimuat di sini -->
-                            </div>
-                        </div>
-                    </div>
-                </div>';
+    //     $number = 1; 
+    //     foreach($posts as $posts )
+    //     {
+    //         $output.=
+    //         '<tr>
+    //             <td>'.$number.'</td>
+    //             <td>'.$posts->custom_id.'</td>
+    //             <td>'.$posts->nama.'</td>
+    //             <td>'.$posts->nik.'</td>
+    //             <td>'.$posts->email.'</td>
+    //             <td>'.$posts->created_at.'</td>
+    //             <td style="text-align: center;">';
+    //             if ($posts->tindak_lanjut === 0)
+    //                 $output .= '<p>Belum ditanggapi</p>';
+    //             elseif ($posts->tindak_lanjut === 1)
+    //                 $output .= '<p>Dalam proses</p>';
+    //             elseif ($posts->tindak_lanjut === 2)
+    //                 $output .= '<p>Selesai</p>';
+    //             else
+    //                 $output .= '<p>Status tidak valid</p>';
+    //             $output .= '</td>
+    //             <td style="text-align: center;">';
+    //             if ($posts->status === 0)
+    //                 $output .= '<p>Belum ditanggapi</p>';
+    //             elseif ($posts->status === 1)
+    //                 $output .= '<p>Dalam proses</p>';
+    //             elseif ($posts->status === 2)
+    //                 $output .= '<p>Selesai</p>';
+    //             else
+    //                 $output .= '<p>Status tidak valid</p>';
+    //                 $output .= '</td>
+    //                 <td class="text-center">
+    //                     <div id="edit-form-container"></div>
+    //                     <form onsubmit="return confirm(\'Apakah Anda Yakin ?\');" action="'. route('posts.destroy', $posts->id) .'" method="POST">
+    //                         <a href="'. route('posts.show', $posts->id) .'" class="btn btn-sm btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a>
+    //                         <a href="#" class="btn btn-sm btn-primary openEditModal" data-bs-target="#editModal_'.$posts->id.'" data-bs-toggle="modal" data-id="'. $posts->id .'"><i class="fa fa-edit" aria-hidden="true"></i></a>
+    //                         <input type="hidden" name="_method" value="DELETE">
+    //                         <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    //                     </form>
+    //                 </td>
+    //             </tr>
+    //             <!-- Modal -->
+    //             <div class="modal fade" id="editModal_'.$posts->id.'" tabindex="-1" aria-labelledby="editModalLabel_'.$posts->id.'" aria-hidden="true">
+    //                 <div class="modal-dialog">
+    //                     <div class="modal-content">
+    //                         <div class="modal-header">
+    //                             <h5 class="modal-title" id="editModalLabel_'.$posts->id.'">Edit Data</h5>
+    //                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    //                         </div>
+    //                         <div class="modal-body">
+    //                             <!-- Form edit akan dimuat di sini -->
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             <script src="resources\js\editModal.js/editModal.js"></script>';
 
 
-        $number++;
-        }
-        return response($output);
-    }
+    //     $number++;
+    //     }
+    //     return response($output);
+    // }
 
     public function showData(Request $request)
     {

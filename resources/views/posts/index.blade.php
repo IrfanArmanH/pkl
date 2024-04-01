@@ -111,9 +111,9 @@
                                             Data Total
                                         </h5>
                                         <?php
-                                            $totalCount = DB::table('posts')->count(); // Menghitung total data
-                                            $presentage = ($totalCount / $totalCount) * 100; // Menghitung presentase (total data dibagi total data)
-                                            echo '<span class="h2 font-weight-bold mb-0">'.$totalCount.'</span>';
+$totalCount = DB::table('posts')->count(); // Menghitung total data
+$presentage = ($totalCount / $totalCount) * 100; // Menghitung presentase (total data dibagi total data)
+echo '<span class="h2 font-weight-bold mb-0">' . $totalCount . '</span>';
                                         ?>
                                         <!-- <span class="h2 font-weight-bold mb-0"> <?php $totalCount   ?> </span> -->
                                     </div>
@@ -127,10 +127,10 @@
                                 </div>
                                 <p class="mt-3 mb-0 text-muted text-sm">
                                     <?php
-                                        $totalCount = DB::table('posts')->count(); // Menghitung total data
-                                        $presentage = ($totalCount / $totalCount) * 100; // Menghitung presentase (total data dibagi total data)
-                                        echo '<span class="text-success mr-2">
-                                                <i class="fa fa-arrow-up"></i>'.$presentage.'%'.'</span>';
+$totalCount = DB::table('posts')->count(); // Menghitung total data
+$presentage = ($totalCount / $totalCount) * 100; // Menghitung presentase (total data dibagi total data)
+echo '<span class="text-success mr-2">
+                                                <i class="fa fa-arrow-up"></i>' . $presentage . '%' . '</span>';
                                     ?>
                                 
                                     <!-- <span class="text-success mr-2"
@@ -152,11 +152,11 @@
                                         <?php  
                                             use App\Models\Post; // Sesuaikan dengan nama model yang Anda gunakan
 
-                                            // Hitung banyak data dengan status "belum ditanggapi"
-                                            $count = Post::where('status', 0)->count();
-                                            
-                                            // $count sekarang berisi jumlah data dengan status "belum ditanggapi"
-                                            echo '<span class="h2 font-weight-bold mb-0">' . $count . '</span> ';
+// Hitung banyak data dengan status "belum ditanggapi"
+$count = Post::where('status', 0)->count();
+
+// $count sekarang berisi jumlah data dengan status "belum ditanggapi"
+echo '<span class="h2 font-weight-bold mb-0">' . $count . '</span> ';
                                         ?>
                                         <!-- <span class="h2 font-weight-bold mb-0">350,897</span> -->
                                     </div>
@@ -169,15 +169,15 @@
                                 <p class="mt-3 mb-0 text-muted text-sm">
                                     <?php  
                                         // Hitung banyak data dengan status "belum ditanggapi"
-                                        $count = Post::where('status', 0)->count();
-                                        if ($count == 0){
-                                            $presentage = 0;
-                                        }else{
-                                            $presentage = ($count / $count) * 100;
-                                        }
-                                            
-                                        // $count sekarang berisi jumlah data dengan status "belum ditanggapi"
-                                        echo '<span class="text-success mr-2">
+$count = Post::where('status', 0)->count();
+if ($count == 0) {
+    $presentage = 0;
+} else {
+    $presentage = ($count / $count) * 100;
+}
+
+// $count sekarang berisi jumlah data dengan status "belum ditanggapi"
+echo '<span class="text-success mr-2">
                                         <i class="fa fa-arrow-up"></i>' . $presentage . '%' . '</span> ';
                                     ?>
                                     <span class="text-nowrap">Since last month</span>
@@ -196,10 +196,10 @@
                                         <?php  
 
                                             // Hitung banyak data dengan status "belum ditanggapi"
-                                            $count = Post::where('status', 1)->count();
-                                            
-                                            // $count sekarang berisi jumlah data dengan status "belum ditanggapi"
-                                            echo '<span class="h2 font-weight-bold mb-0">' . $count . '</span> ';
+$count = Post::where('status', 1)->count();
+
+// $count sekarang berisi jumlah data dengan status "belum ditanggapi"
+echo '<span class="h2 font-weight-bold mb-0">' . $count . '</span> ';
                                         ?>
                                         <!-- <span class="h2 font-weight-bold mb-0">350,897</span> -->
                                     </div>
@@ -212,15 +212,15 @@
                                 <p class="mt-3 mb-0 text-muted text-sm">
                                     <?php  
                                         // Hitung banyak data dengan status "belum ditanggapi"
-                                        $count = Post::where('status', 1)->count();
-                                        if ($count == 0){
-                                            $presentage = 0;
-                                        }else{
-                                            $presentage = ($count / $count) * 100;
-                                        }
-                                            
-                                        // $count sekarang berisi jumlah data dengan status "belum ditanggapi"
-                                        echo '<span class="text-success mr-2">
+$count = Post::where('status', 1)->count();
+if ($count == 0) {
+    $presentage = 0;
+} else {
+    $presentage = ($count / $count) * 100;
+}
+
+// $count sekarang berisi jumlah data dengan status "belum ditanggapi"
+echo '<span class="text-success mr-2">
                                         <i class="fa fa-arrow-up"></i>' . $presentage . '%' . '</span> ';
                                     ?>
                                     <span class="text-nowrap">Since last month</span>
@@ -239,10 +239,10 @@
                                         <?php  
 
                                             // Hitung banyak data dengan status "belum ditanggapi"
-                                            $count = Post::where('status', 2)->count();
-                                            
-                                            // $count sekarang berisi jumlah data dengan status "belum ditanggapi"
-                                            echo '<span class="h2 font-weight-bold mb-0">' . $count . '</span> ';
+$count = Post::where('status', 2)->count();
+
+// $count sekarang berisi jumlah data dengan status "belum ditanggapi"
+echo '<span class="h2 font-weight-bold mb-0">' . $count . '</span> ';
                                         ?>
                                     </div>
                                     <div class="col-auto">
@@ -256,15 +256,15 @@
                                 <p class="mt-3 mb-0 text-muted text-sm">
                                     <?php  
                                         // Hitung banyak data dengan status "belum ditanggapi"
-                                        $count = Post::where('status', 2)->count();
-                                        if ($count == 0){
-                                            $presentage = 0;
-                                        }else{
-                                            $presentage = ($count / $count) * 100;
-                                        }
-                                            
-                                        // $count sekarang berisi jumlah data dengan status "belum ditanggapi"
-                                        echo '<span class="text-success mr-2">
+$count = Post::where('status', 2)->count();
+if ($count == 0) {
+    $presentage = 0;
+} else {
+    $presentage = ($count / $count) * 100;
+}
+
+// $count sekarang berisi jumlah data dengan status "belum ditanggapi"
+echo '<span class="text-success mr-2">
                                         <i class="fa fa-arrow-up"></i>' . $presentage . '%' . '</span> ';
                                     ?>
                                     <span class="text-nowrap">Since last month</span>
@@ -276,9 +276,13 @@
             </div>
             <div class="row mb-2">
                     <div class="col-md-12 d-flex justify-content-center">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <input type="search" name="search" id="search" class="form-control" placeholder="Masukkan kata kunci pencarian">
-                        </div>
+                        </div> -->
+                        <form action="{{ route('search') }}" method="GET">
+                            <input type="text" name="search" placeholder="Search Products">
+                            <button type="submit">Search</button>
+                        </form>
                     </div>
             </div>
             <div class="table-responsive">
@@ -344,10 +348,9 @@
                               @endforelse
                             </tbody>
                               <tbody id="Content" class="searchData">
-
+                              
                               </tbody>
                 </table>
-                {{ $posts->links() }}
 
                 <!-- Modal -->
                 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -363,26 +366,6 @@
                         </div>
                     </div>
                 </div>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        const openEditModalLinks = document.querySelectorAll('.openEditModal');
-                        const modalBody = document.querySelector('.modal-body');
-
-                        openEditModalLinks.forEach(link => {
-                            link.addEventListener('click', function (event) {
-                                event.preventDefault(); // Mencegah tautan membuka halaman baru
-                                const postId = this.getAttribute('data-id');
-                                fetch(`/posts/${postId}/edit`)
-                                    .then(response => response.text())
-                                    .then(data => {
-                                        modalBody.innerHTML = data;
-                                        $('#editModal').modal('show'); // Tampilkan modal
-                                    })
-                                    .catch(error => console.error('Error:', error));
-                            });
-                        });
-                    });
-                </script>
 
             </div>
         </div>
@@ -436,29 +419,7 @@
         <div class="float-right d-none d-md-inline-block text-light"><b>Versi</b> 2.2.0</div>
     </footer>
     <script>
-        $('#search').on('keyup',function()
-        {
-            $value = $(this).val();
-
-            if($value){
-                $('.alldata').hide();
-                $('.searchData').show();
-            }else{
-                $('.alldata').show();
-                $('.searchData').hide();
-            }
-
-            $.ajax({
-                type : 'get',
-                url : '{{URL::to('search')}}',
-                data : {'search':$value},
-
-                success:function(data){
-                    console.log(data)
-                    $('#Content').html(data)
-                }
-            })
-        })
+        
     </script>
 
 </body>
@@ -477,6 +438,49 @@
         toastr.error('{{ session('error') }}', 'GAGAL!'); 
         
     @endif
+
+    document.addEventListener('DOMContentLoaded', function () {
+            const openEditModalLinks = document.querySelectorAll('.openEditModal');
+            const modalBody = document.querySelector('.modal-body');
+
+            openEditModalLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault(); // Mencegah tautan membuka halaman baru
+                    const postId = this.getAttribute('data-id');
+                    fetch(`/posts/${postId}/edit`)
+                        .then(response => response.text())
+                        .then(data => {
+                            modalBody.innerHTML = data;
+                            $('#editModal').modal('show'); // Tampilkan modal
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+
+    //     $('#search').on('keyup',function()
+    // {
+    //     $value = $(this).val();
+
+    //     if($value){
+    //         $('.alldata').hide();
+    //         $('.searchData').show();
+    //     }else{
+    //         $('.alldata').show();
+    //         $('.searchData').hide();
+    //     }
+
+    //     $.ajax({
+    //         type : 'get',
+    //         url : '{{URL::to('fetch_search')}}',
+    //         data : {'search':$value},
+
+    //         success:function(data){
+    //             console.log(data)
+    //             $('.alldata').html(data)
+    //         }
+    //     })
+    // })
 </script>
 
 </html>
