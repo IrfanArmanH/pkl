@@ -64,3 +64,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Cara menjalankan project
+1.buka folder di vscode
+2. buat database bernama db_pupr
+3. ketik php artisan migrate di terminal
+4. nyalakan xampp
+5. jalankan web dengan php artisan serve di terminal
+6. copy ip addres dan jalankan di browser dengan menambahkan /Beranda%20Kantor%20PUPR seteah ip addres seperti ini http://127.0.0.1:8000/Beranda%20Kantor%20PUPR
+
