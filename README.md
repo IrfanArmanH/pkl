@@ -67,10 +67,11 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 ## Cara menjalankan project
-1.buka folder di vscode
-2. buat database bernama db_pupr
-3. ketik php artisan migrate di terminal
-4. nyalakan xampp
-5. jalankan web dengan php artisan serve di terminal
-6. copy ip addres dan jalankan di browser dengan menambahkan /Beranda%20Kantor%20PUPR seteah ip addres seperti ini http://127.0.0.1:8000/Beranda%20Kantor%20PUPR
+<p>1.buka folder di vscode</p><br>
+<p>2. buat database bernama db_pupr</p><br>
+<p>3. ketik php artisan migrate di terminal</p><br>
+<p>4. nyalakan xampp</p><br>
+<p>5. jalankan web dengan php artisan serve di terminal</p><br>
+<p>6. copy ip addres dan jalankan di browser dengan menambahkan /Beranda%20Kantor%20PUPR seteah ip addres seperti ini http://127.0.0.1:8000/Beranda%20Kantor%20PUPR</p><br>
+
 
