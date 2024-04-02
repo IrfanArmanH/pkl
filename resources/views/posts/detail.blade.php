@@ -240,7 +240,14 @@
                                             <td class="font-weight-bold">
                                                 NIK
                                             </td>
-                                            <td>{{ $post->nik }}</td>
+                                            <td>
+                                            @php
+                                                $nik = $post->nik;
+                                                $visibleDigits = substr($nik, 0, 3); // Mengambil tiga angka pertama
+                                                $hiddenDigits = str_repeat('*', strlen($nik) - 3); // Mengganti angka sisanya dengan bintang
+                                                echo $visibleDigits . $hiddenDigits;
+                                            @endphp
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="font-weight-bold">
@@ -302,7 +309,7 @@
                                     >
                                     <div class="border border-4" id="">
                                         @php
-$extension = pathinfo($post->sketsa_lokasi, PATHINFO_EXTENSION);
+                                            $extension = pathinfo($post->sketsa_lokasi, PATHINFO_EXTENSION);
                                         @endphp
 
                                         @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) <!-- Memeriksa apakah file adalah gambar -->

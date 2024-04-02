@@ -197,12 +197,12 @@
                     <label class="font-weight-bold">Sketsa Lokasi</label>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" name="sketsa_lokasi">
                             
-                            <!-- error message untuk title -->
-                                @error('sketsa_lokasi')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                <!-- error message untuk title -->
+                    @error('sketsa_lokasi')
+                        <div class="alert alert-danger mt-2">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label class="font-weight-bold">Dokumen Kelurahan</label>
@@ -221,6 +221,7 @@
                         margin-bottom: 10px;
                     }
                 </style>
+                <br>
                 <script>
                     var map = L.map('map').setView([-0.502106, 117.153709], 13);
 
@@ -240,12 +241,16 @@
                         document.getElementById('latitude').value = e.latlng.lat;
                     });
                 </script>
-                <div class="col-md-auto col-12 m-2">
-                    <label for="longitude">Longitude:</label>
-                    <input type="text" name="longitude" id="longitude" required readonly>
-                    <label for="latitude">Latitude:</label>
-                    <input type="text" name="latitude" id="latitude" required readonly>
-                    
+                
+                <div class="row">
+                    <div class="col-md-auto col-12 mb-2">
+                        <label for="longitude">Longitude:</label>
+                        <input type="text" name="longitude" id="longitude" required readonly>
+                    </div>
+                    <div class="col-md-auto col-12">
+                        <label for="latitude">Latitude:</label>
+                        <input type="text" name="latitude" id="latitude" required readonly>
+                    </div>
                 </div>
                 <!-- jika user tidak input koordinat map -->
                 <div class="form-group">

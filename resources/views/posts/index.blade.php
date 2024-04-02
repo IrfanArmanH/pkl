@@ -280,8 +280,8 @@ echo '<span class="text-success mr-2">
                             <input type="search" name="search" id="search" class="form-control" placeholder="Masukkan kata kunci pencarian">
                         </div> -->
                         <form action="{{ route('search') }}" method="GET">
-                            <input type="text" name="search" placeholder="Search Products">
-                            <button type="submit">Search</button>
+                            <input type="text" name="search" placeholder="Search name">
+                            <!-- <button type="submit">Search</button> -->
                         </form>
                     </div>
             </div>
@@ -301,55 +301,69 @@ echo '<span class="text-success mr-2">
                         </tr>
                     </thead>
                     <tbody class="alldata">
-                    @forelse($posts as $data)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td style="text-align: center;">{{ $data->custom_id }}</td>
-                                    <td style="text-align: center;">{{ $data->nama }}</td>
-                                    <td style="text-align: center;">{{ $data->nik }}</td>
-                                    <td style="text-align: center;">{{$data->email }}</td>
-                                    <td style="text-align: center;">{{$data->created_at }}</td>
-                                    <td style="text-align: center;">@if ($data->tindak_lanjut === 0)
-                                        <p>Belum ditanggapi</p>
-                                    @elseif ($data->tindak_lanjut === 1)
-                                        <p>Dalam proses</p>
-                                    @elseif ($data->tindak_lanjut === 2)
-                                        <p>Selesai</p>
-                                    @else
-                                        <p>Status tidak valid</p>
-                                    @endif
-                                    </td>
-                                    <td style="text-align: center;">@if ($data->status === 0)
-                                        <p>Belum ditanggapi</p>
-                                    @elseif ($data->status === 1)
-                                        <p>Dalam proses</p>
-                                    @elseif ($data->status === 2)
-                                        <p>Selesai</p>
-                                    @else
-                                        <p>Status tidak valid</p>
-                                    @endif
-                                    </td>
-                                    <div id="edit-form-container"></div>
-                                    <td class="text-center">
-                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('posts.destroy', $data->id) }}" method="POST">
-                                            <a href="{{ route('posts.show', $data->id) }}" class="btn btn-sm btn-dark"><i class="fa fa-eye
-                                            " aria-hidden="true"></i></a>
-                                            <a href="#" class="btn btn-sm btn-primary openEditModal" data-id="{{ $data->id }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                              @empty
-                                  <div class="alert alert-danger">
-                                      Data Post belum Tersedia.
-                                  </div>
-                              @endforelse
-                            </tbody>
-                              <tbody id="Content" class="searchData">
+                    @php
+                        $count = ($posts->currentPage() - 1) * $posts->perPage() + 1;
+                    @endphp
+                    @foreach($posts as $data)
+                        <tr>
+                            <td>{{ $count }}</td>
+                            <td style="text-align: center;">{{ $data->custom_id }}</td>
+                            <td style="text-align: center;">{{ $data->nama }}</td>
+                            <td style="text-align: center;">{{ $data->nik }}</td>
+                            <td style="text-align: center;">{{$data->email }}</td>
+                            <td style="text-align: center;">{{$data->created_at }}</td>
+                            <td style="text-align: center;">@if ($data->tindak_lanjut === 0)
+                                <p>Belum ditanggapi</p>
+                            @elseif ($data->tindak_lanjut === 1)
+                                <p>Dalam proses</p>
+                            @elseif ($data->tindak_lanjut === 2)
+                                <p>Selesai</p>
+                            @else
+                                <p>Status tidak valid</p>
+                            @endif
+                            </td>
+                            <td style="text-align: center;">@if ($data->status === 0)
+                                <p>Belum ditanggapi</p>
+                            @elseif ($data->status === 1)
+                                <p>Dalam proses</p>
+                            @elseif ($data->status === 2)
+                                <p>Selesai</p>
+                            @else
+                                <p>Status tidak valid</p>
+                            @endif
+                            </td>
+                            <div id="edit-form-container"></div>
+                            <td class="text-center">
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('posts.destroy', $data->id) }}" method="POST">
+                                    <a href="{{ route('posts.show', $data->id) }}" class="btn btn-sm btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="#" class="btn btn-sm btn-primary openEditModal" data-id="{{ $data->id }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        @php
+                            $count++;
+                        @endphp
+                        @endforeach
+                        @if($posts->isEmpty())
+                            <div class="alert alert-danger">
+                                Data Post belum Tersedia.
+                            </div>
+                        @endif
+                        </tbody>
+                        <tfoot>  
+                            <td colspan="9" class="text-center">
+                            <div class="d-flex justify-content-center">
+                                {{ $posts->links() }}
+                            </div>
+                            </td>
+                        </tfoot>
+                              <!-- <tbody id="Content" class="searchData">
                               
-                              </tbody>
+                              </tbody> -->
+                           
                 </table>
 
                 <!-- Modal -->
@@ -456,6 +470,18 @@ echo '<span class="text-success mr-2">
                         .catch(error => console.error('Error:', error));
                 });
             });
+        });
+
+        //  Tangani klik tombol "Load More"
+        document.getElementById('loadMoreBtn').addEventListener('click', function() {
+            // Kirim permintaan AJAX untuk memuat data lebih lanjut
+            fetch('posts.loadMoreData')
+                .then(response => response.text())
+                .then(data => {
+                    // Sisipkan data yang dimuat ke dalam tabel
+                    document.querySelector('.alldata').innerHTML += data;
+                })
+                .catch(error => console.error('Error:', error));
         });
 
     //     $('#search').on('keyup',function()

@@ -11,10 +11,10 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
 use Illuminate\Http\Request;
-//buat id unik
-use Haruncpi\LaravelIdGenerator\IdGenerator;
 
-use Illuminate\Support\Facades\DB;
+//import Facade "Storage"
+use Illuminate\Support\Facades\Storage;
+
 
 class PostController extends Controller
 {
@@ -33,12 +33,30 @@ class PostController extends Controller
     }
 
     public function search(Request $request)
-{
-    $search = $request->input('search');
-    $results = Post::where('nama', 'like', '%' . $search . '%')->get();
+    {
+        $search = $request->get('search');
 
-    return view('posts.index', ['posts' => $results]);
-}
+        if (!empty($search)) {
+            $search = trim($search); // Remove leading and trailing whitespace
+            $posts = Post::where('nama', 'like', '%' . $search . '%')->paginate(5);
+            $posts->appends(['search' => $search]);
+
+            if ($posts->count() > 0) {
+                return view('posts.index', ['posts' => $posts]);
+            }
+            
+            return back()->with('error', 'No results found.');
+        }else if(empty($search)){
+            //get posts
+            $posts = Post::latest()->paginate(5);
+
+            //render view with posts
+            return view('posts.index', compact('posts'));
+        }
+        
+        return back()->with('error', 'Please enter a search term.');
+    }
+
     public function create(): View
     {
         return view('posts.form_pengaduan');
@@ -164,6 +182,21 @@ class PostController extends Controller
 
         //redirect to index
         return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Diubah!']);
+    }
+
+    public function destroy($id): RedirectResponse
+    {
+        //get post by ID
+        $post = Post::findOrFail($id);
+
+        //delete image
+        Storage::delete('public/posts/'. $post->image);
+
+        //delete post
+        $post->delete();
+
+        //redirect to index
+        return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 
     public function showIndex()
